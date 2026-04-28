@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+    }
+
     environment {
         AWS_CREDS = 'aws-terraform-credentials'
     }
@@ -8,7 +12,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/rupali-sapkal/Terraform-Full-Project.git'
+                git branch: 'main', url: 'https://github.com/rupali-sapkal/Terraform-Full-Project.git'
             }
         }
 
@@ -37,11 +41,9 @@ pipeline {
         always {
             echo "📊 Pipeline Complete"
         }
-
         success {
             echo "✅ SUCCESS"
         }
-
         failure {
             echo "❌ FAILED"
         }
